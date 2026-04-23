@@ -8,6 +8,7 @@ from langgraph.graph.message import add_messages
 from langchain_core.messages import AnyMessage
 from coze_coding_utils.runtime_ctx.context import default_headers
 from storage.memory.memory_saver import get_memory_saver
+from tools.question_generator import generate_adaptive_question, estimate_ability_level
 
 LLM_CONFIG = "config/agent_llm_config.json"
 
@@ -23,13 +24,22 @@ class AgentState(MessagesState):
 
 def build_agent(ctx=None):
     """
-    构建能力测评智能体
+    构建智能自适应能力测评智能体
 
-    该智能体具备以下能力：
+    该智能体具备以下核心能力：
     1. 对话式测评管理
-    2. 动态出题（支持IRT自适应策略或按顺序出题）
-    3. 答案记录与评分
-    4. 测评报告生成
+    2. 动态生成题目（基于IRT理论，不使用固定题库）
+    3. 自适应出题策略（根据被测者表现调整难度）
+    4. 情境化题目生成（基于真实场景）
+    5. 能力估计（θ值估计）
+    6. 答案记录与评分
+    7. 测评报告生成
+
+    关键创新点：
+    - 每道题目都是根据被测者实时表现动态生成
+    - 支持选择题、情境判断题、开放性题目
+    - 自动调整题目难度（easy/medium/hard）
+    - 多维度测评和能力趋势分析
 
     Returns:
         Agent: 已配置好的智能体实例
@@ -61,7 +71,7 @@ def build_agent(ctx=None):
     return create_agent(
         model=llm,
         system_prompt=cfg.get("sp"),
-        tools=[],
+        tools=[generate_adaptive_question, estimate_ability_level],
         checkpointer=get_memory_saver(),
         state_schema=AgentState,
     )
