@@ -1,48 +1,73 @@
-node_modules
-dist
-.DS_Store
-*.swp
-.git/*
+# Python
 __pycache__/
-*.pyc
-.venv
-*.o
-*.a
-/vendor
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
-/.env
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Environment variables
 .env
+.env.local
 
-# 视频文件
-*.mp4
-*.avi
-*.mov
-*.wmv
-*.flv
-*.mkv
-*.webm
-*.m4v
-*.mpeg
-*.mpg
-*.3gp
-*.f4v
-*.rmvb
-*.vob
+# OS
+.DS_Store
+Thumbs.db
 
-# 归档文件
-*.iso
-*.dmg
-*.rar
-*.zip
-*.gz
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
 
-# 文档类也默认加入
+# Temporary files
+*.tmp
+*.bak
+*.cache
+
+# Large data files (PDF, DOCX, etc.)
 *.pdf
-*.docx
 *.doc
-*.xlsx
+*.docx
 *.xls
+*.xlsx
 *.ppt
 *.pptx
-*.xlsx
-*.csv
+*.mp3
+*.mp4
+*.zip
+*.tar
+*.gz
+
+# Lock files (optional, 可以保留)
+# uv.lock
