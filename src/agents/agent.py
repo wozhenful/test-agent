@@ -9,6 +9,7 @@ from langchain_core.messages import AnyMessage
 from coze_coding_utils.runtime_ctx.context import default_headers
 from storage.memory.memory_saver import get_memory_saver
 from tools.question_generator import generate_adaptive_question, estimate_ability_level
+from tools.voice_tools import text_to_speech
 
 LLM_CONFIG = "config/agent_llm_config.json"
 
@@ -71,7 +72,7 @@ def build_agent(ctx=None):
     return create_agent(
         model=llm,
         system_prompt=cfg.get("sp"),
-        tools=[generate_adaptive_question, estimate_ability_level],
+        tools=[generate_adaptive_question, estimate_ability_level, text_to_speech],
         checkpointer=get_memory_saver(),
         state_schema=AgentState,
     )
